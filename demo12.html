@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<body>
+<div id="app"></div>
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                message: 'jspang.com',
+            }
+        },
+        methods: {
+            handleItemClick() {
+                this.message = this.message == 'jspang.com' ? "技术胖" : "bilibili"
+            }
+        },
+        template: `<h2 v-if="message=='jspang.com'" @click="handleItemClick" class="one">{{message}}</h2>
+                    <h2 v-if="message=='技术胖'" @click="handleItemClick" class = "two">{{message}}</h2>
+                    <h2 v-if="message=='bilibili'" @click="handleItemClick" class = "three">{{message}}</h2>
+
+
+                    `
+
+    })
+    const vm = app.mount("#app")
+
+</script>
+<style>
+    .one {color: red;}
+    .two {color: green;}
+    .three{color:orange;}
+</style>
+</html>

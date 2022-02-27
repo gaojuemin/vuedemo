@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>13</title>
+    <script src="https://unpkg.com/vue@3"></script>
+</head>
+<body>
+<div id="app"></div>
+</body>
+<script>
+    const app=Vue.createApp({
+        data(){
+            return{
+                // message:'jspang.com' ,
+                price:10,
+                count:2,
+            }
+        },
+        methods:{
+            // getTotal(){
+            //     return Date.now()  //会随着页面重新渲染的变化而变化.
+            // },
+            addCount(){
+                this.count++
+            },
+        },          //方法methods：只要页面重新渲染，就会重新执行方法
+        //  计算属性computed: 当计算属性依赖的内容发生变更时，才会重新执行计算
+        computed:{
+            total(){
+                // return Date.now()  //不会随着页面重新渲染变化而变化 return执行第一个,后面的不执行.
+                return this.price*this.count
+            },
+
+        },
+        watch:{
+          count(current,prev){    //参数现在值,和过去值.
+              console.log('count changed')
+              console.log('now',current)
+              console.log('before',prev)
+          }
+        },
+        template:`
+<!--          <h2>{{ message }}</h2>-->
+          <h2> {{ total }}computed</h2>
+<!--          <h2> {{ getTotal()}}</h2> -->
+          <button @click="addCount">buy one more</button>
+
+        `
+    })
+    const vm=app.mount("#app")
+</script>
+
+
+</html>
+<!--//computed 和 method都能实现的功能，建议使用computed,因为有缓存，不用渲染页面就刷新。-->
+<!--//computed 和 watch 都能实现的功能，建议使用 computed，因为更加简洁。如果显示和隐藏的状态切换比较频繁，
+并且没有什么多余复杂的业务逻辑，建议使用v-show,因为他不会一直渲染你的页面DOM元素，这或多或少对性能和稳定性有点提升。反之可以使用v-if。-->
