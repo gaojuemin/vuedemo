@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>26</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.0.2/vue.global.js"></script>
+</head>
+
+<body>
+<div id="app"></div>
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                counter: 0
+            }
+        },
+        methods:{
+          handleAddCounter(param){
+              console.log(param)
+              this.counter += param
+              // this.counter +=1
+          }
+        },
+        template: `
+                    <h2>JSPang.com</h2>
+                    <counter :counter="counter" @add="handleAddCounter"/>
+             `
+    })
+    app.component('Counter', {
+        props: ['counter'],
+        emits:['add'], //子组件调用父组件事件.
+        // emits: {
+        //     add: (value) => {
+        //         return value < 20 ? true : false
+        //     }
+        // }, 传递值校验
+        methods:{
+          handleClick(){
+              this.$emit('add',2)
+          }
+        },
+        template: `
+        {{counter}}<button @click="handleClick">增加数量</button>
+    `
+    })//best way所有业务逻辑都放在子组件中，然后把结果传递给父组件
+
+    const vm = app.mount("#app")
+</script>
+
+</html>

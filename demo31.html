@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo11</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.0.2/vue.global.js"></script>
+</head>
+
+<body>
+<div id="app"></div>
+</body>
+<script>
+    const app = Vue.createApp({
+        template: ` <div><tongbu /></div>
+                     <async-component />
+        `
+    })
+    app.component('tongbu', {
+        template: `<div>JSPang.com</div>`
+    })
+    app.component('async-component', Vue.defineAsyncComponent(() => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve({
+                    template: `<div>这是一个异步组件</div>`
+                })
+            }, 3000)
+        })
+    }))
+    const vm = app.mount("#app")
+</script>
+<!--//异步组件就是在调用组件时，这个组件并不立即渲染，而是要等带一些业务逻辑完成后，才会进行执行组件内的逻辑和渲染到页面上-->
+</html>

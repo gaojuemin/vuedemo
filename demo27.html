@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>27</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.0.2/vue.global.js"></script>
+</head>
+<body>
+<div id="app"></div>
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {jishi: 'xiaohong'}
+        },
+        template: ` <h2>欢迎光临红浪漫-请选择您的技师</h2>
+        <ji-shi>
+        <div style="color: red;font-size: 50px;">chacao,{{ jishi }}
+          <project/>
+        </div>
+        </ji-shi>
+        <ji-shi>
+        <div style="color:green;font-size:50px;">刘英</div>
+        </ji-shi>
+        <ji-shi/>` //组件名称加横杠这么写,也能认出来. 插槽中放子组件.
+        //父模板里调用的数据属性，使用的都是父模板里的数据
+        //子模板里调用的数据属性，使用的都是子模板里的数据
+    })
+    app.component('JiShi', {
+        template: `
+        <div>
+             <span>
+             jing guo shengzhong kaolv xuan ze.
+              </span>
+              <span>
+              <slot> </slot>
+</span>
+        </div>`//插槽的声明很简单，只要在子组件中加入<slot></slot>标签即可，然后在父组件中使用双标签进行调用。
+    })
+    app.component('project', {template: `<span style="color:blue;">项目是胖哥老三样</span>`})
+
+    const vm = app.mount("#app")
+</script>
+
+</html>

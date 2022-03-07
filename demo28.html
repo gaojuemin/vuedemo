@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>28</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.0.2/vue.global.js"></script>
+</head>
+
+<body>
+<div id="app"></div>
+</body>
+<script>
+    const app = Vue.createApp({
+        template: ` <h2>欢迎光临红浪漫-请选择您的技师</h2>
+                    <ji-shi><span style="color:red">大脚</span></ji-shi>
+                    <hong-lan-man>
+                    <template #one><div>1.女宾一位，请上三楼。</div></template>
+                    <template v-slot:two><div>3.顾客选择了全身SPA。</div></template>
+</hong-lan-man>
+`
+    })
+
+    app.component('JiShi', {
+        template: `<div> 你选择了<slot><span style="color:green;">晓红</span></slot>为你服务。</div>`
+    })
+
+    app.component('HongLanMan', {
+        template: `
+        <div>
+                <slot name="one"></slot>
+                <div>2.你选择了大脚为你服务</div>
+                <slot name="two"></slot>
+
+</div>`
+    })
+    //有值传递过来的时候，会显示正常的值，没有值的时候就会显示默认值"晓红"
+    //具名插槽的使用.v-slot:one这种方法，其实这个语法可以简写成#one
+    const vm = app.mount("#app")
+</script>
